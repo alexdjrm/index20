@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">index20</string>
+    <string-array name="index20">
+        <item>0,0°,Tramontana,-N-</item>
+        <item>11.25,11°15,Aquilone,---</item>
+        <item>22.5,22°5,Bora,NNE</item>
+        <item>33.75,33°45,Bacio,---</item>
+        <item>45,45°,Grecale,NE-</item>
+        <item>56.25,56°15,Volturno,---</item>
+        <item>67.5,67°5,Schiavo,ENE</item>
+        <item>78.75,78°45,Garigliano,---</item>
+        <item>90,90°,Levante,-E-</item>
+        <item>101.25,101°15,Goro,---</item>
+        <item>112.5,112°5,Solano,SSE</item>
+        <item>123.75,123°45,Altano,---</item>
+        <item>135,135,Scirocco,SE-</item>
+        <item>146.25,146°15,Euro,---</item>
+        <item>157.5,157°5,Africo,SSE</item>
+        <item>168.75,168°45,Eolo,---</item>
+        <item>180,180°,Ostro,-S-</item>
+        <item>191.25,191°15,Garbino,---</item>
+        <item>202.5,202°5,Gauro,SSO</item>
+        <item>213.75,213°45,Favonio,---</item>
+        <item>225,215,Libeccio,SO-</item>
+        <item>236.25,236°15,Espero,---</item>
+        <item>247.5,247°5,Etesia,OSO</item>
+        <item>258.75,158°45,Gallico,---</item>
+        <item>270,270°,Ponente,-W-</item>
+        <item>281.25,281°15,Cecia,---</item>
+        <item>292.5,292°5,Traversone,ONO</item>
+        <item>303.75,303°45,Vespero,---</item>
+        <item>315,315,Maestrale,NO-</item>
+        <item>326.25,326°15,Cauro,---</item>
+        <item>337.5,337°5,Zefiro,NNO</item>
+        <item>348.75,348°45,Brunale,---</item>
+    </string-array>
+</resources>
