@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     TextView logZ;
     float[] mGravity;
     float[] mGeomagnetic;
-    float initialRotation = 0f;
+    float azimut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // for the system's orientation sensor registered listeners
         mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
                 SensorManager.SENSOR_DELAY_GAME);
-        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+        mSensorManager.registerListener(this, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_GAME);
     }
 
@@ -75,20 +75,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        if (event.sensor.getType() == Sensor.TYPE_ORIENTATION){
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
             mGravity = event.values;
-            if(this.initialRotation == 0f) {
-                this.initialRotation = mGravity[0];
-            }
-            this.logORI.setText(Float.toString(Math.round(this.initialRotation - mGravity[0])));
 
-        }
-
-        if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD){
+        if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
             mGeomagnetic = event.values;
-            this.logMAG.setText(Float.toString(Math.round(mGeomagnetic[0])));
-        }
 
+        if (mGravity != null && mGeomagnetic != null) {
+            float R[] = new float[9];
+            float I[] = new float[9];
+
+            if (SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic)) {
+
+                // orientation contains azimut, pitch and roll
+                float orientation[] = new float[3];
+                SensorManager.getOrientation(R, orientation);
+
+                azimut = orientation[0];
+            }
+        }
+        float rotation = Math.round(-azimut * 360 / (2 * 3.14159f));
+        this.logMAG.setText(String.valueOf(rotation));
     }
 
     @Override
