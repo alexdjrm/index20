@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         float rotation = Math.round(azimut * 360 / (2 * 3.14159f));
         this.logMAG.setText(String.valueOf(-rotation));
-        imageViewProtractorPointer.setRotation(roundRotation(rotation));
+        imageViewProtractorPointer.setRotation(roundRotation(-rotation));
         float absValue = rotation<0 ? 360+rotation : rotation;
         this.logX.setText(String.valueOf(windManager.getWindByRotation(absValue).getName()));
         this.logY.setText(String.valueOf(windManager.getWindByRotation(absValue).getDegrees()));
