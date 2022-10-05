@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.logX.setText(String.valueOf(windManager.getWindByRotation(absValue).getName()));
         this.logY.setText(String.valueOf(windManager.getWindByRotation(absValue).getDegrees()));
         this.logZ.setText(String.valueOf(windManager.getWindByRotation(absValue).getCardinal()));
-
     }
 
     @Override
