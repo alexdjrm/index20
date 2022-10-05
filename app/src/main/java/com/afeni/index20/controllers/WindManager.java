@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 public class WindManager {
 
-    public static ArrayList<Wind> getWinds(String[] index20) {
+    public ArrayList<Wind> index20;
+
+    public WindManager(String[] index20) {
         ArrayList<Wind> res = new ArrayList<>();
         for (String windRaw : index20) {
             String[] windRawArray = windRaw.split(",");
@@ -16,6 +18,25 @@ public class WindManager {
             String cardinal = windRawArray[3];
             res.add(new Wind(name, float_value, degrees, cardinal));
         }
-        return res;
+        this.index20 = res;
     }
+
+    public ArrayList<Wind> getWinds() {
+        return this.index20;
+    }
+
+    public Wind getWindByRotation(float rotation) {
+        if (rotation < getWinds().get(0).getFloat_value() + 5.625 || rotation > getWinds().get(getWinds().size()-1).getFloat_value() + 5.625) {
+            return getWinds().get(0);
+        } else {
+            for (int i = 1; i < getWinds().size(); i++) {
+                if (rotation < getWinds().get(i).getFloat_value() + 5.625 && rotation > getWinds().get(i).getFloat_value() - 5.625) {
+                    return getWinds().get(i);
+                }
+            }
+        }
+        return null;
+    }
+
+
 }

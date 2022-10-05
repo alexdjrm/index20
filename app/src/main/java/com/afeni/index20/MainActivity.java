@@ -9,14 +9,11 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.afeni.index20.controllers.WindManager;
-import com.afeni.index20.models.Wind;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener2 {
 
     private SensorManager mSensorManager;
-    private ArrayList<Wind> index20;
+    private WindManager windManager;
 
     TextView logMAG;
     TextView logORI;
@@ -31,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.index20 = WindManager.getWinds(getResources().getStringArray(R.array.index20));
+        this.windManager = new WindManager(getResources().getStringArray(R.array.index20));
         setContentView(R.layout.activity_main);
         this.logMAG = findViewById(R.id.logMAG);
         this.logMAG.setText("MAG");
@@ -39,11 +36,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         this.logORI.setText("ORI");
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         this.logX = findViewById(R.id.logX);
-        this.logX.setText(index20.get(0).getName());
         this.logY = findViewById(R.id.logY);
-        this.logY.setText(index20.get(0).getCardinal());
         this.logZ = findViewById(R.id.logZ);
-        this.logZ.setText(String.valueOf(index20.get(0).getFloat_value()));
         imageViewProtractorPointer = findViewById(R.id.compass);
     }
 
@@ -90,9 +84,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 azimut = orientation[0];
             }
         }
-        float rotation = Math.round(-azimut * 360 / (2 * 3.14159f));
+        float rotation = Math.round(azimut * 360 / (2 * 3.14159f));
         this.logMAG.setText(String.valueOf(rotation));
         imageViewProtractorPointer.setRotation(roundRotation(rotation));
+        float absValue = rotation<0 ? 360+rotation : rotation;
+        this.logX.setText(String.valueOf(windManager.getWindByRotation(absValue).getName()));
+        this.logY.setText(String.valueOf(windManager.getWindByRotation(absValue).getDegrees()));
+        this.logZ.setText(String.valueOf(windManager.getWindByRotation(absValue).getCardinal()));
+
     }
 
     @Override
